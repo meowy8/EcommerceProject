@@ -81,6 +81,7 @@ nav {
 }
 
 .icons-list button {
+  display: flex;
   cursor: pointer;
   background-color: transparent;
   border: none;
