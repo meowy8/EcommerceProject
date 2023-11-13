@@ -45,6 +45,7 @@ nav {
   background-color: rgba(0, 0, 0, 0);
   border: none;
   border-right: 1px solid black;
+  font-family: 'Neuton', serif;
 }
 
 .shop-section button:hover {
@@ -53,23 +54,41 @@ nav {
 }
 
 .dropdown {
-  display: none;
-  border: 1px solid black;
+  display: block;
   background-color: white;
-  border-top: none;
-  padding: 5px;
   width: 100%;
+  height: 0;
+  overflow: hidden;
+}
+
+.shop-section:hover .dropdown {
+  display: flex;
+  height: 150px;
+  padding: 5px;
+  border: 1px solid black;
+  border-top: none;
+  transition: height .3s ease-in-out;
 }
 
 .dropdown ul {
   display: flex;
   flex-direction: column;
-  padding: 0;
-  gap: 20px;
+  gap: 15px;
+  padding: 10px;
 }
 
-.shop-section:hover .dropdown {
+.dropdown button {
   display: flex;
+  flex-direction: column;
+  padding: 0;
+  font-family: 'Raleway', sans-serif;
+  border: none;
+  background-color: transparent;
+  color: rgb(63, 63, 63)
+}
+
+.dropdown button:hover {
+  background-color: transparent;
 }
 
 .search-bar-container {
