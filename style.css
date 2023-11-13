@@ -150,7 +150,7 @@ main {
 }
 
 .main-display {
-  display: flex;
+  display: none;
   width: 2000px;
   height: 1000px;
   justify-content: space-around;
@@ -195,4 +195,66 @@ main {
   border-left: 2px solid black;
   height: 100%;
   width: 0;
+}
+
+.products-display {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-top: 100px;
+  margin-bottom: 50px;
+}
+
+.men-bestsellers {
+  display: grid;
+  gap: 30px;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.product-container {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid black;
+  width: 300px;
+  height: 350px;
+  border-radius: 3px;
+}
+
+.product-img {
+  display: flex;
+  justify-content: end;
+  align-items: start;
+  border-bottom: 1px solid black;
+  height: 80%;
+  width: 100%;
+}
+
+.product-img button {
+  background-color: transparent;
+  border: none;
+}
+
+.product-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 20%;
+}
+
+.product-footer div {
+  display: flex;
+  margin-left: 30px;
+  align-items: center;
+  width: 70%;
+  gap: 10px;
+}
+
+.product-footer input {
+  width: 30px;
+}
+
+.product-footer button {
+  height: 100%;
+  background-color: transparent;
 }
