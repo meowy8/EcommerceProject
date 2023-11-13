@@ -4,15 +4,18 @@
 
 body {
   padding: 0 5px 0 5px;
-  margin: 7px;
+  margin: 0;
 }
 
 nav {
   display: flex;
-  height: 50px;
+  position: absolute;
+  width: 100vw;
+  background-color: white;
+  height: 70px;
   align-items: center;
   justify-content: space-around;
-  padding-bottom: 5px;
+  padding: 5px 0 5px 0;
   border-bottom: 2px solid black;
 }
 
@@ -56,9 +59,10 @@ nav {
 .dropdown {
   display: block;
   background-color: white;
-  width: 100%;
+  width: 170px;
   height: 0;
   overflow: hidden;
+  position: absolute;
 }
 
 .shop-section:hover .dropdown {
@@ -82,6 +86,7 @@ nav {
   flex-direction: column;
   padding: 0;
   font-family: 'Raleway', sans-serif;
+  font-size: 15px;
   border: none;
   background-color: transparent;
   color: rgb(63, 63, 63)
@@ -137,4 +142,56 @@ nav {
 .material-symbols-outlined:hover {
   font-variation-settings: 
   'FILL' 1
+}
+
+main {
+  display: flex;
+
+}
+
+.main-display {
+  display: flex;
+  width: 100%;
+  height: 100vh;
+  justify-content: space-around;
+  align-items: center;
+  overflow: hidden;
+}
+
+.main-display img {
+  width: 700px;
+  overflow: hidden;
+}
+
+.main-display button {
+  background-color: transparent;
+  border: 5px solid black;
+  width: 150px;
+  padding: 10px;
+  position: absolute;
+  z-index: 1;
+}
+
+.main-display button:hover {
+  cursor: pointer;
+  color: white;
+  background-color: black;
+}
+
+.main-display h2 {
+  margin: 0;
+}
+
+.main-display div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.vertical-line {
+  padding: 0;
+  margin: 0;
+  border: 2px solid black;
+  border-left: none;
+  height: 100%;
 }
