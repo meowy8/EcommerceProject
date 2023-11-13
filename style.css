@@ -9,7 +9,7 @@ body {
 
 nav {
   display: flex;
-  position: absolute;
+  position: fixed;
   width: 100vw;
   background-color: white;
   height: 70px;
@@ -151,15 +151,10 @@ main {
 
 .main-display {
   display: flex;
-  width: 100%;
-  height: 100vh;
+  width: 2000px;
+  height: 1000px;
   justify-content: space-around;
   align-items: center;
-  overflow: hidden;
-}
-
-.main-display img {
-  width: 700px;
   overflow: hidden;
 }
 
@@ -182,16 +177,22 @@ main {
   margin: 0;
 }
 
-.main-display div {
+.main-display-left, .main-display-right {
   display: flex;
+  width: 50%;
   justify-content: center;
   align-items: center;
+}
+
+.main-display img {
+  width: 100%;
+  overflow: hidden;
 }
 
 .vertical-line {
   padding: 0;
   margin: 0;
-  border: 2px solid black;
-  border-left: none;
+  border-left: 2px solid black;
   height: 100%;
+  width: 0;
 }
