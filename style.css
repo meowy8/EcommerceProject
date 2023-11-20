@@ -163,6 +163,49 @@ nav {
   border-bottom: 1px solid black;
   flex: .8;
   overflow: scroll;
+  padding: 10px;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.basket-item {
+  display: flex;
+  width: 100%;
+  height: 100px;
+  padding: 2px;
+}
+
+.basket-item:hover {
+  background-color: rgba(0, 0, 0, .03);
+}
+
+.basket-item-img-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100px;
+  flex: 1;
+}
+
+.basket-item-img-container img {
+  border: 1px solid black;
+  border-radius: 4px;
+  width: 65px;
+  height: 75px;
+}
+
+.basket-item-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex: 1;
+}
+
+.close-btn-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: .7;
 }
 
 .basket-total {
