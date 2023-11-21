@@ -236,6 +236,44 @@ nav {
   outline: none;
 }
 
+.favourites-dropdown {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  border: 1px solid black;
+  margin-top: 25px;
+  right: 10px;
+  padding: 10px;
+  gap: 10px;
+  width: 300px;
+  height: 400px;
+}
+
+.favourites-items {
+  display: flex;
+  overflow: scroll;
+  flex-direction: column;
+}
+
+.favourites-dropdown-heading p {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.favourites-dropdown img {
+  border: 1px solid black;
+  border-radius: 4px;
+  width: 65px;
+  height: 75px;
+}
+
+.favourites-item {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  align-items: center;
+}
+
 .material-symbols-outlined {
   font-variation-settings:
   'FILL' 0,
