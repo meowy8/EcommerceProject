@@ -132,7 +132,7 @@ nav {
 }
 
 .basket-dropdown {
-  display: flex;
+  display: none;
   flex-direction: column;
   width: 300px;
   height: 400px;
@@ -214,6 +214,26 @@ nav {
   font-size: 1.2rem;
   align-items: center;
   flex: .1;
+}
+
+.sign-in-dropdown {
+  display: none;
+  flex-direction: column;
+  position: absolute;
+  border: 1px solid black;
+  margin-top: 25px;
+  right: 10px;
+  padding: 15px;
+  gap: 15px;
+}
+
+.sign-in-dropdown p {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.sign-in-dropdown input {
+  outline: none;
 }
 
 .material-symbols-outlined {
