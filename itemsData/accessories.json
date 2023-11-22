@@ -1,0 +1,9 @@
+{
+  "accessories": {
+    "item1": {
+      "name": "Stylish Watch",
+      "src": "accessories/item1.jpg",
+      "price": 49.99
+    }
+  }
+}

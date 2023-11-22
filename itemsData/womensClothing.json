@@ -1,0 +1,30 @@
+{
+  "bestsellers": {
+    "item1": {
+      "name": "Bestseller T-shirt",
+      "src": "bestsellers/item1.jpg",
+      "price": 29.99
+    }
+  },
+  "t-shirts": {
+    "item1": {
+      "name": "Graphic Tee",
+      "src": "t-shirts/item1.jpg",
+      "price": 24.99
+    }
+  },
+  "trousers": {
+    "item1": {
+      "name": "Slim Fit Chinos",
+      "src": "trousers/item1.jpg",
+      "price": 44.99
+    }
+  },
+  "sweatshirts/hoodies": {
+    "item1": {
+      "name": "Cozy Sweatshirt",
+      "src": "sweatshirts/item1.jpg",
+      "price": 49.99
+    }
+  }
+}
