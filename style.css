@@ -346,12 +346,24 @@ main {
 }
 
 .products-display {
-  display: grid;
+  display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
   margin-top: 100px;
   margin-bottom: 50px;
+}
+
+.section-nav-heading {
+  display: flex;
+  margin-bottom: 10px;
+}
+
+.section-nav-heading button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 1.5rem;
 }
 
 .men-bestsellers {
@@ -376,12 +388,19 @@ main {
   border-bottom: 1px solid black;
   height: 80%;
   width: 100%;
+  overflow: hidden;
 }
 
 .product-img button {
   background-color: transparent;
   border: none;
   cursor: pointer;
+  position: absolute;
+}
+
+.product-img img {
+  position: relative;
+  width: 100%;
 }
 
 .product-footer {

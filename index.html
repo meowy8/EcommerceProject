@@ -196,91 +196,10 @@
             <div class="basket-dropdown-heading">
               <p>Basket</p>
             </div>
-            <div class="basket-items">
-              <div class="basket-item">
-                <div class="basket-item-img-container">
-                  <img src="" alt="">
-                </div>
-                <div class="basket-item-info">
-                  <p>Jacket</p>
-                  <p>Quantity: <span>1</span></p>
-                  <p>Price: £<span>10.95</span></p>
-                </div>
-                <div class="close-btn-container">
-                  <button>
-                    <span class="material-symbols-outlined">
-                      close
-                    </span>
-                  </button>
-                </div>
-              </div>
-              <div class="basket-item">
-                <div class="basket-item-img-container">
-                  <img src="" alt="">
-                </div>
-                <div class="basket-item-info">
-                  <p>Jacket</p>
-                  <p>Quantity: <span>1</span></p>
-                </div>
-                <div class="close-btn-container">
-                  <button>
-                    <span class="material-symbols-outlined">
-                      close
-                    </span>
-                  </button>
-                </div>
-              </div>
-              <div class="basket-item">
-                <div class="basket-item-img-container">
-                  <img src="" alt="">
-                </div>
-                <div class="basket-item-info">
-                  <p>Jacket</p>
-                  <p>Quantity: <span>1</span></p>
-                </div>
-                <div class="close-btn-container">
-                  <button>
-                    <span class="material-symbols-outlined">
-                      close
-                    </span>
-                  </button>
-                </div>
-              </div>
-              <div class="basket-item">
-                <div class="basket-item-img-container">
-                  <img src="" alt="">
-                </div>
-                <div class="basket-item-info">
-                  <p>Jacket</p>
-                  <p>Quantity: <span>1</span></p>
-                </div>
-                <div class="close-btn-container">
-                  <button>
-                    <span class="material-symbols-outlined">
-                      close
-                    </span>
-                  </button>
-                </div>
-              </div>
-              <div class="basket-item">
-                <div class="basket-item-img-container">
-                  <img src="" alt="">
-                </div>
-                <div class="basket-item-info">
-                  <p>Jacket</p>
-                  <p>Quantity: <span>1</span></p>
-                </div>
-                <div class="close-btn-container">
-                  <button>
-                    <span class="material-symbols-outlined">
-                      close
-                    </span>
-                  </button>
-                </div>
-              </div>
+            <div class="basket-items" id="basket-items">
             </div>
             <div class="basket-total">
-              <p>Total: £<span>54.75</span></p>
+              <p>Total: £<span>0</span></p>
             </div>
           </div>
         </li>
@@ -304,9 +223,15 @@
       </div>
     </section>
     <section class="products-display">
+      <div class="section-nav-heading">
+        <button>Men</button>
+        <p>></p>
+        <button>Bestsellers</button>
+      </div>
       <section class="men-bestsellers">
         <div class="product-container">
           <div class="product-img">
+            <img src="" alt="" id="product-img">
             <button>
               <span class="material-symbols-outlined favourites-icon">
                 favorite
@@ -318,7 +243,7 @@
               <label for="quantity-value">Quantity:</label>
               <input type="number" name="quantity-value" id="quantity-value">
             </div>
-            <button>Add to Cart</button>
+            <button id="add-to-cart-btn">Add to Cart</button>
           </div>
         </div>
         <div class="product-container">
