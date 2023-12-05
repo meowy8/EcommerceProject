@@ -7,6 +7,11 @@ body {
   margin: 0;
 }
 
+p {
+  padding: 0;
+  margin: 0;
+}
+
 nav {
   display: flex;
   position: fixed;
@@ -347,6 +352,7 @@ main {
 
 .products-display {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 100%;
@@ -356,6 +362,7 @@ main {
 
 .section-nav-heading {
   display: flex;
+  align-items: center;
   margin-bottom: 10px;
 }
 
@@ -405,24 +412,29 @@ main {
 
 .product-footer {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+  flex-direction: column;
   height: 20%;
 }
 
-.product-footer div {
+.product-footer-top {
   display: flex;
-  margin-left: 30px;
+  justify-content: space-between;
+  padding: 10px;
+  font-size: 15px;
+}
+
+.product-footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 10px 0 10px;
   align-items: center;
-  width: 70%;
-  gap: 10px;
 }
 
 .product-footer input {
   width: 30px;
 }
 
-.product-footer button {
+.product-footer-bottom button {
   height: 100%;
   background-color: transparent;
   cursor: pointer;

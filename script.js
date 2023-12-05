@@ -8,8 +8,7 @@ const addToCartBtn = document.getElementById('add-to-cart-btn')
 const basketItems = document.getElementById('basket-items')
 const quantityValue = document.getElementById('quantity-value')
 const basketTotal = document.querySelector('.basket-total span')
-
-const productImg = document.querySelectorAll('.product-img img');
+const menBestsellers = document.getElementById('men-bestsellers')
 
 profileIconBtn.addEventListener('click', function() {
   signInDropdown.style.display = 'flex'
@@ -30,13 +29,51 @@ basketBtn.addEventListener('blur', function() {
   basketDropdown.style.display = 'none'
 })
 
-fetch('itemsData/mensClothing.json')
+//bestsellers products
+fetch('itemsData/menBestsellers.json')
   .then(response => response.json())
   .then(data => {
     console.log(data)
-    productImg.forEach(img => {
-      img.src = data.bestsellers.item1.src
+
+    for (const item in data) {
+      menBestsellers.innerHTML += `
+        <div class="product-container">
+          <div class="product-img">
+            <img src="" alt="" id="product-img">
+            <button>
+              <span class="material-symbols-outlined favourites-icon">
+                favorite
+              </span>
+            </button>
+          </div>
+          <div class="product-footer">
+            <div class="product-footer-top">
+              <p class="product-name"></p>
+              <p class="product-price"></p>
+            </div>
+            <div class="product-footer-bottom">
+              <div>
+                <label for="quantity-value">Quantity:</label>
+                <input type="number" name="quantity-value" id="quantity-value">
+              </div>
+              <button id="add-to-cart-btn">Add to Cart</button>
+            </div>
+          </div>
+        </div>
+      `
+  
+    const productContainer = document.querySelectorAll('.product-container')
+
+    productContainer.forEach(container => {
+      const productImg = container.querySelector('.product-img img')
+      const productName = container.querySelector('.product-name')
+      const productPrice = container.querySelector('.product-price')
+
+      productImg.src = item.src
+      productName.innerText = item.name
+      productPrice.innerText = '£' + item.price
     })
+    }
   })
 
 const basketTotalFunc = () => {
@@ -47,7 +84,6 @@ const basketTotalFunc = () => {
     basketTotalValue += Number(total.innerText)
   })
 
-  console.log(Number(basketTotalValue.toFixed(2)))
   basketTotal.innerText = Number(basketTotalValue.toFixed(2))
 }
 
