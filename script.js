@@ -35,9 +35,11 @@ fetch('itemsData/menBestsellers.json')
   .then(data => {
     console.log(data)
 
+    let productKeyNumber = 0
     for (const item in data) {
+      productKeyNumber += 1
       menBestsellers.innerHTML += `
-        <div class="product-container">
+        <div class="product-container product-container-key-${productKeyNumber}">
           <div class="product-img">
             <img src="" alt="" id="product-img">
             <button>
@@ -61,18 +63,15 @@ fetch('itemsData/menBestsellers.json')
           </div>
         </div>
       `
-  
-    const productContainer = document.querySelectorAll('.product-container')
 
-    productContainer.forEach(container => {
-      const productImg = container.querySelector('.product-img img')
-      const productName = container.querySelector('.product-name')
-      const productPrice = container.querySelector('.product-price')
+      const productContainer = document.querySelector(`.product-container-key-${productKeyNumber}`)
+      const productImg = productContainer.querySelector('.product-img img')
+      const productName = productContainer.querySelector('.product-name')
+      const productPrice = productContainer.querySelector('.product-price')
 
-      productImg.src = item.src
-      productName.innerText = item.name
-      productPrice.innerText = '£' + item.price
-    })
+      productImg.src = data[item].src
+      productName.innerText = data[item].name
+      productPrice.innerText = '£' + data[item].price
     }
   })
 
@@ -110,5 +109,3 @@ const addToCartFunc = () => {
   `
   basketTotalFunc()
 }
-
-addToCartBtn.addEventListener('click', addToCartFunc)
