@@ -4,9 +4,7 @@ const favouritesBtn = document.getElementById('favourites-btn')
 const favouritesDropdown = document.getElementById('favourites-dropdown')
 const basketBtn = document.getElementById('basket-btn')
 const basketDropdown = document.getElementById('basket-dropdown')
-const addToCartBtn = document.getElementById('add-to-cart-btn')
 const basketItems = document.getElementById('basket-items')
-const quantityValue = document.getElementById('quantity-value')
 const basketTotal = document.querySelector('.basket-total span')
 const menBestsellers = document.getElementById('men-bestsellers')
 
@@ -29,52 +27,6 @@ basketBtn.addEventListener('blur', function() {
   basketDropdown.style.display = 'none'
 })
 
-//bestsellers products
-fetch('itemsData/menBestsellers.json')
-  .then(response => response.json())
-  .then(data => {
-    console.log(data)
-
-    let productKeyNumber = 0
-    for (const item in data) {
-      productKeyNumber += 1
-      menBestsellers.innerHTML += `
-        <div class="product-container product-container-key-${productKeyNumber}">
-          <div class="product-img">
-            <img src="" alt="" id="product-img">
-            <button>
-              <span class="material-symbols-outlined favourites-icon">
-                favorite
-              </span>
-            </button>
-          </div>
-          <div class="product-footer">
-            <div class="product-footer-top">
-              <p class="product-name"></p>
-              <p class="product-price"></p>
-            </div>
-            <div class="product-footer-bottom">
-              <div>
-                <label for="quantity-value">Quantity:</label>
-                <input type="number" name="quantity-value" id="quantity-value">
-              </div>
-              <button id="add-to-cart-btn">Add to Cart</button>
-            </div>
-          </div>
-        </div>
-      `
-
-      const productContainer = document.querySelector(`.product-container-key-${productKeyNumber}`)
-      const productImg = productContainer.querySelector('.product-img img')
-      const productName = productContainer.querySelector('.product-name')
-      const productPrice = productContainer.querySelector('.product-price')
-
-      productImg.src = data[item].src
-      productName.innerText = data[item].name
-      productPrice.innerText = '£' + data[item].price
-    }
-  })
-
 const basketTotalFunc = () => {
   const productTotal = document.querySelectorAll('.product-total')
   
@@ -86,17 +38,18 @@ const basketTotalFunc = () => {
   basketTotal.innerText = Number(basketTotalValue.toFixed(2))
 }
 
-const addToCartFunc = () => {
+const addToCartFunc = (item) => {
+  const quantityValue = document.getElementById('quantity-value')
   const productQuantity = quantityValue.value
   basketItems.innerHTML += `
    <div class="basket-item" id="basket-item">
       <div class="basket-item-img-container">
-        <img src="" alt="">
+        <img src="${item.src}" alt="">
       </div>
       <div class="basket-item-info" id="basket-item-info">
-        <p>Jacket</p>
+        <p>${item.name}</p>
         <p>Quantity: ${productQuantity}</p>
-        <p>Price: £<span class="product-total">10.95</span></p>
+        <p>Price: £<span class="product-total">${item.price * productQuantity}</span></p>
       </div>
       <div class="close-btn-container">
         <button>
@@ -109,3 +62,44 @@ const addToCartFunc = () => {
   `
   basketTotalFunc()
 }
+
+//bestsellers products
+fetch('itemsData/menBestsellers.json')
+  .then(response => response.json())
+  .then(data => {
+    console.log(data)
+
+    let key = 0
+    for (const item in data) {
+      const itemData = data[item]
+      key += 1
+      menBestsellers.innerHTML += `
+        <div class="product-container product-container-key-${key}">
+          <div class="product-img">
+            <img src="${itemData.src}" alt="" id="product-img">
+            <button>
+              <span class="material-symbols-outlined favourites-icon">
+                favorite
+              </span>
+            </button>
+          </div>
+          <div class="product-footer">
+            <div class="product-footer-top">
+              <p class="product-name">${itemData.name}</p>
+              <p class="product-price">£${itemData.price}</p>
+            </div>
+            <div class="product-footer-bottom">
+              <div>
+                <label for="quantity-value">Quantity:</label>
+                <input type="number" name="quantity-value" id="quantity-value" value=1>
+              </div>
+              <button id="add-to-cart-btn" class="add-to-cart-btn add-to-cart-btn-${key}">Add to Cart</button>
+            </div>
+          </div>
+        </div>
+      `
+
+      const addToCartBtn = menBestsellers.querySelector('button .add-to-cart-btn')
+      addToCartBtn.addEventListener('click', addToCartFunc(itemData))
+    }
+  })
