@@ -23,9 +23,9 @@ favouritesBtn.addEventListener('blur', function() {
 basketBtn.addEventListener('click', function() {
   basketDropdown.style.display = 'flex'
 })
-basketBtn.addEventListener('blur', function() {
+/*basketBtn.addEventListener('blur', function() {
   basketDropdown.style.display = 'none'
-})
+})*/
 
 const basketTotalFunc = () => {
   const productTotal = document.querySelectorAll('.product-total')
@@ -63,6 +63,15 @@ const addToCartFunc = (productImg, displayName, productPrice, quantityValue) => 
       </div>
     </div>
   `
+
+  const basketItem = basketItems.querySelectorAll('.basket-item')
+  basketItem.forEach(item => {
+    const removeItemBtn = item.querySelector('button')
+    removeItemBtn.addEventListener('click', function() {
+      console.log('test')
+      item.remove()
+    })
+  })
   
   basketTotalFunc()
 }
