@@ -27,6 +27,19 @@ basketBtn.addEventListener('click', function() {
   basketDropdown.style.display = 'none'
 })*/
 
+const basketRemoveBtn = () => {
+  const basketItem = basketItems.querySelectorAll('.basket-item')
+  basketItem.forEach(item => {
+    const removeItemBtn = item.querySelector('button')
+    removeItemBtn.addEventListener('click', function() {
+      const productTotalNum = item.querySelector('.product-total')
+      basketTotal.innerText = (Number(basketTotal.innerText) - Number(productTotalNum.innerText)).toFixed(2)
+
+      item.remove()
+    })
+  })
+}
+
 const basketTotalFunc = () => {
   const productTotal = document.querySelectorAll('.product-total')
   
@@ -43,38 +56,48 @@ const addToCartFunc = (productImg, displayName, productPrice, quantityValue) => 
   const displayNameText = displayName.innerText
   const productPriceNum = Number(productPrice.innerText.replace('£', ''))
   const productQuantityNum = Number(quantityValue.value)
+  const listOfNameElements = basketItems.querySelectorAll('.display-name-text')
 
-  basketItems.innerHTML += `
-  <div class="basket-item" id="basket-item">
-      <div class="basket-item-img-container">
-        <img src="${productImgSrc}" alt="">
-      </div>
-      <div class="basket-item-info" id="basket-item-info">
-        <p>${displayNameText}</p>
-        <p>Quantity: ${productQuantityNum}</p>
-        <p>Price: £<span class="product-total">${productPriceNum * productQuantityNum}</span></p>
-      </div>
-      <div class="close-btn-container">
-        <button>
-          <span class="material-symbols-outlined">
-            close
-          </span>
-        </button>
-      </div>
-    </div>
-  `
-
-  const basketItem = basketItems.querySelectorAll('.basket-item')
-  basketItem.forEach(item => {
-    const removeItemBtn = item.querySelector('button')
-    removeItemBtn.addEventListener('click', function() {
-      const productTotalNum = item.querySelector('.product-total')
-      basketTotal.innerText = (Number(basketTotal.innerText) - Number(productTotalNum.innerText)).toFixed(2)
-
-      item.remove()
-    })
+  let basketItemInfo = null
+  const duplicateItem = Array.from(listOfNameElements).some(element => {
+    if (element.innerText === displayNameText) {
+      basketItemInfo = element.parentElement
+      return true
+    } else {
+      return false
+    }
   })
-  
+
+  if (duplicateItem) {
+    console.log('test')
+    const duplicateItemQuantity = basketItemInfo.querySelector('.product-quantity-value')
+    const duplicateItemPrice = basketItemInfo.querySelector('.product-total')
+
+    duplicateItemQuantity.innerText = Number(duplicateItemQuantity.innerText) + productQuantityNum 
+    duplicateItemPrice.innerText = (Number(duplicateItemPrice.innerText) + (productPriceNum * productQuantityNum)).toFixed(2)
+  } else {
+    basketItems.innerHTML += `
+    <div class="basket-item" id="basket-item">
+        <div class="basket-item-img-container">
+          <img src="${productImgSrc}" alt="">
+        </div>
+        <div class="basket-item-info" id="basket-item-info">
+          <p class="display-name-text">${displayNameText}</p>
+          <p>Quantity: <span class="product-quantity-value">${productQuantityNum}</span></p>
+          <p>Price: £<span class="product-total">${productPriceNum * productQuantityNum}</span></p>
+        </div>
+        <div class="close-btn-container">
+          <button>
+            <span class="material-symbols-outlined">
+              close
+            </span>
+          </button>
+        </div>
+      </div>
+    `
+  }
+
+  basketRemoveBtn()
   basketTotalFunc()
 }
 
