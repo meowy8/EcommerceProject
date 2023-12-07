@@ -68,7 +68,9 @@ const addToCartFunc = (productImg, displayName, productPrice, quantityValue) => 
   basketItem.forEach(item => {
     const removeItemBtn = item.querySelector('button')
     removeItemBtn.addEventListener('click', function() {
-      console.log('test')
+      const productTotalNum = item.querySelector('.product-total')
+      basketTotal.innerText = (Number(basketTotal.innerText) - Number(productTotalNum.innerText)).toFixed(2)
+
       item.remove()
     })
   })
