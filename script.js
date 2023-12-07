@@ -38,18 +38,21 @@ const basketTotalFunc = () => {
   basketTotal.innerText = Number(basketTotalValue.toFixed(2))
 }
 
-const addToCartFunc = (item) => {
-  const quantityValue = document.getElementById('quantity-value')
-  const productQuantity = quantityValue.value
+const addToCartFunc = (productImg, displayName, productPrice, quantityValue) => {
+  const productImgSrc = productImg.src
+  const displayNameText = displayName.innerText
+  const productPriceNum = Number(productPrice.innerText.replace('£', ''))
+  const productQuantityNum = Number(quantityValue.value)
+
   basketItems.innerHTML += `
-   <div class="basket-item" id="basket-item">
+  <div class="basket-item" id="basket-item">
       <div class="basket-item-img-container">
-        <img src="${item.src}" alt="">
+        <img src="${productImgSrc}" alt="">
       </div>
       <div class="basket-item-info" id="basket-item-info">
-        <p>${item.name}</p>
-        <p>Quantity: ${productQuantity}</p>
-        <p>Price: £<span class="product-total">${item.price * productQuantity}</span></p>
+        <p>${displayNameText}</p>
+        <p>Quantity: ${productQuantityNum}</p>
+        <p>Price: £<span class="product-total">${productPriceNum * productQuantityNum}</span></p>
       </div>
       <div class="close-btn-container">
         <button>
@@ -60,6 +63,7 @@ const addToCartFunc = (item) => {
       </div>
     </div>
   `
+  
   basketTotalFunc()
 }
 
@@ -98,8 +102,18 @@ fetch('itemsData/menBestsellers.json')
           </div>
         </div>
       `
-
-      const addToCartBtn = menBestsellers.querySelector('button .add-to-cart-btn')
-      addToCartBtn.addEventListener('click', addToCartFunc(itemData))
     }
+
+    const productContainer = menBestsellers.querySelectorAll('.product-container')
+    productContainer.forEach(container => {
+      const addToCartBtn = container.querySelector('.add-to-cart-btn')
+      const productImg = container.querySelector('img')
+      const displayName = container.querySelector('.product-name')
+      const productPrice = container.querySelector('.product-price')
+      const quantityValue = container.querySelector('input')
+      addToCartBtn.addEventListener('click', function() {
+        addToCartFunc(productImg, displayName, productPrice, quantityValue)
+      })
+    })
   })
+
