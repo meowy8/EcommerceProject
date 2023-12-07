@@ -31,13 +31,16 @@ const basketRemoveBtn = () => {
   const basketItem = basketItems.querySelectorAll('.basket-item')
   basketItem.forEach(item => {
     const removeItemBtn = item.querySelector('button')
+    const productTotalNum = item.querySelector('.product-total')
+    console.log(productTotalNum)
     removeItemBtn.addEventListener('click', function() {
-      const productTotalNum = item.querySelector('.product-total')
+      console.log(basketTotal.innerText)
       basketTotal.innerText = (Number(basketTotal.innerText) - Number(productTotalNum.innerText)).toFixed(2)
-
+      console.log(basketTotal.innerText)
       item.remove()
     })
   })
+  return
 }
 
 const basketTotalFunc = () => {
@@ -69,7 +72,6 @@ const addToCartFunc = (productImg, displayName, productPrice, quantityValue) => 
   })
 
   if (duplicateItem) {
-    console.log('test')
     const duplicateItemQuantity = basketItemInfo.querySelector('.product-quantity-value')
     const duplicateItemPrice = basketItemInfo.querySelector('.product-total')
 
@@ -95,9 +97,10 @@ const addToCartFunc = (productImg, displayName, productPrice, quantityValue) => 
         </div>
       </div>
     `
+
+    basketRemoveBtn()
   }
 
-  basketRemoveBtn()
   basketTotalFunc()
 }
 
