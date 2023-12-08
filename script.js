@@ -91,6 +91,12 @@ const addToCartFunc = (productImgSrc, displayNameText, productPriceNum, quantity
   const productQuantityNum = Number(quantityValue.value)
   const listOfNameElements = basketItems.querySelectorAll('.basket-display-name-text')
 
+  if (productQuantityNum < 1) {
+    alert('You must add at least one item.')
+    quantityValue.value = 1
+    return
+  }
+
   let basketItemInfo = null
   const duplicateItem = Array.from(listOfNameElements).some(element => {
     if (element.innerText === displayNameText) {
@@ -183,7 +189,7 @@ fetch('itemsData/menBestsellers.json')
             <div class="product-footer-bottom">
               <div>
                 <label for="quantity-value">Quantity:</label>
-                <input type="number" name="quantity-value" id="quantity-value" value=1>
+                <input type="number" name="quantity-value" id="quantity-value" value=1 min="0">
               </div>
               <button id="add-to-cart-btn" class="add-to-cart-btn add-to-cart-btn-${key}">Add to Cart</button>
             </div>
