@@ -17,6 +17,23 @@ menSectionDropdownBtns.forEach(button => {
   })
 })
 
+const womenSectionDropdownBtns = document.querySelectorAll('.women-section-dropdown button');
+womenSectionDropdownBtns.forEach(button => {
+  button.addEventListener('click', function() {
+    const displayChoice = button.innerText;
+    getWomenClothingData(displayChoice);
+  });
+});
+
+const accessoriesSectionDropdownBtns = document.querySelectorAll('.accessories-section-dropdown button');
+accessoriesSectionDropdownBtns.forEach(button => {
+  button.addEventListener('click', function() {
+    const displayChoice = button.innerText;
+    getAccessoriesData(displayChoice);
+  });
+});
+
+
 const createProductDisplay = (itemData) => {
   const productDisplayHtml = `
   <div class="product-container">
@@ -202,8 +219,6 @@ const getMenClothingData = (displayChoice) => {
   fetch('itemsData/mensClothing.json')
   .then(response => response.json())
   .then(data => {
-    console.log(data)
-
     if (displayChoice === 'Bestsellers') {
       productsDisplay.innerHTML = `
       <section class="men-bestsellers" id="men-bestsellers"></section>
@@ -211,7 +226,6 @@ const getMenClothingData = (displayChoice) => {
       const menBestsellers = document.getElementById('men-bestsellers')
   
       const menBestsellersData = data.bestsellers
-      console.log(menBestsellersData)
   
       for (const item in menBestsellersData) {
         const itemData = menBestsellersData[item]
@@ -231,7 +245,6 @@ const getMenClothingData = (displayChoice) => {
       const menShirts = document.getElementById('men-shirts')
   
       const menShirtsData = data['t-shirts']
-      console.log(menShirtsData)
   
       for (const item in menShirtsData) {
         const itemData = menShirtsData[item]
@@ -251,7 +264,6 @@ const getMenClothingData = (displayChoice) => {
       const menTrousers = document.getElementById('men-trousers')
   
       const menTrousersData = data['trousers']
-      console.log(menTrousersData)
   
       for (const item in menTrousersData) {
         const itemData = menTrousersData[item]
@@ -271,7 +283,6 @@ const getMenClothingData = (displayChoice) => {
       const menHoodies = document.getElementById('men-hoodies')
   
       const menHoodiesData = data['sweatshirts/hoodies']
-      console.log(menHoodiesData)
   
       for (const item in menHoodiesData) {
         const itemData = menHoodiesData[item]
@@ -288,4 +299,172 @@ const getMenClothingData = (displayChoice) => {
   })
 }
 
+const getWomenClothingData = (displayChoice) => {
+  fetch('itemsData/womensClothing.json')
+    .then(response => response.json())
+    .then(data => {
+      if (displayChoice === 'Bestsellers') {
+        productsDisplay.innerHTML = `
+          <section class="women-bestsellers" id="women-bestsellers"></section>
+        `;
+        const womenBestsellers = document.getElementById('women-bestsellers');
+    
+        const womenBestsellersData = data.bestsellers;
+    
+        for (const item in womenBestsellersData) {
+          const itemData = womenBestsellersData[item];
+          womenBestsellers.innerHTML += createProductDisplay(itemData);
+        }
+    
+        womenBestsellers.style.display = 'grid';
+    
+        const productContainer = womenBestsellers.querySelectorAll('.product-container');
+        productContainer.forEach(container => {
+          gatherContainerInfo(container);
+        }); 
+      } else if (displayChoice === 'T-Shirts/Shirts') {
+        productsDisplay.innerHTML = `
+          <section class="women-shirts" id="women-shirts"></section>
+        `;
+        const womenShirts = document.getElementById('women-shirts');
+    
+        const womenShirtsData = data['t-shirts'];
+    
+        for (const item in womenShirtsData) {
+          const itemData = womenShirtsData[item];
+          womenShirts.innerHTML += createProductDisplay(itemData);
+        }
+    
+        womenShirts.style.display = 'grid';
+    
+        const productContainer = womenShirts.querySelectorAll('.product-container');
+        productContainer.forEach(container => {
+          gatherContainerInfo(container);
+        }); 
+      } else if (displayChoice === 'Trousers') {
+        productsDisplay.innerHTML = `
+          <section class="women-trousers" id="women-trousers"></section>
+        `;
+        const womenTrousers = document.getElementById('women-trousers');
+    
+        const womenTrousersData = data['trousers'];
+    
+        for (const item in womenTrousersData) {
+          const itemData = womenTrousersData[item];
+          womenTrousers.innerHTML += createProductDisplay(itemData);
+        }
+    
+        womenTrousers.style.display = 'grid';
+    
+        const productContainer = womenTrousers.querySelectorAll('.product-container');
+        productContainer.forEach(container => {
+          gatherContainerInfo(container);
+        }); 
+      } else if (displayChoice === 'Sweatshirts/Hoodies') {
+        productsDisplay.innerHTML = `
+          <section class="women-hoodies" id="women-hoodies"></section>
+        `;
+        const womenHoodies = document.getElementById('women-hoodies');
+    
+        const womenHoodiesData = data['sweatshirts/hoodies'];
+    
+        for (const item in womenHoodiesData) {
+          const itemData = womenHoodiesData[item];
+          womenHoodies.innerHTML += createProductDisplay(itemData);
+        }
+    
+        womenHoodies.style.display = 'grid';
+    
+        const productContainer = womenHoodies.querySelectorAll('.product-container');
+        productContainer.forEach(container => {
+          gatherContainerInfo(container);
+        }); 
+      }
+    });
+}
+
+const getAccessoriesData = (displayChoice) => {
+  fetch('itemsData/accessories.json')
+    .then(response => response.json())
+    .then(data => {
+      if (displayChoice === 'Bestsellers') {
+        productsDisplay.innerHTML = `
+          <section class="accessories-bestsellers" id="accessories-bestsellers"></section>
+        `;
+        const accessoriesBestsellers = document.getElementById('accessories-bestsellers');
+    
+        const accessoriesBestsellersData = data.bestsellers;
+    
+        for (const item in accessoriesBestsellersData) {
+          const itemData = accessoriesBestsellersData[item];
+          accessoriesBestsellers.innerHTML += createProductDisplay(itemData);
+        }
+    
+        accessoriesBestsellers.style.display = 'grid';
+    
+        const productContainer = accessoriesBestsellers.querySelectorAll('.product-container');
+        productContainer.forEach(container => {
+          gatherContainerInfo(container);
+        }); 
+      } else if (displayChoice === 'Jewellery') {
+        productsDisplay.innerHTML = `
+          <section class="accessories-jewellery" id="accessories-jewellery"></section>
+        `;
+        const accessoriesJewellery = document.getElementById('accessories-jewellery');
+    
+        const accessoriesJewelleryData = data.jewellery;
+    
+        for (const item in accessoriesJewelleryData) {
+          const itemData = accessoriesJewelleryData[item];
+          accessoriesJewellery.innerHTML += createProductDisplay(itemData);
+        }
+    
+        accessoriesJewellery.style.display = 'grid';
+    
+        const productContainer = accessoriesJewellery.querySelectorAll('.product-container');
+        productContainer.forEach(container => {
+          gatherContainerInfo(container);
+        }); 
+      } else if (displayChoice === 'Hats') {
+        productsDisplay.innerHTML = `
+          <section class="accessories-hats" id="accessories-hats"></section>
+        `;
+        const accessoriesHats = document.getElementById('accessories-hats');
+    
+        const accessoriesHatsData = data.hats;
+    
+        for (const item in accessoriesHatsData) {
+          const itemData = accessoriesHatsData[item];
+          accessoriesHats.innerHTML += createProductDisplay(itemData);
+        }
+    
+        accessoriesHats.style.display = 'grid';
+    
+        const productContainer = accessoriesHats.querySelectorAll('.product-container');
+        productContainer.forEach(container => {
+          gatherContainerInfo(container);
+        }); 
+      } else if (displayChoice === 'Bags') {
+        productsDisplay.innerHTML = `
+          <section class="accessories-bags" id="accessories-bags"></section>
+        `;
+        const accessoriesBags = document.getElementById('accessories-bags');
+    
+        const accessoriesBagsData = data.bags;
+    
+        for (const item in accessoriesBagsData) {
+          const itemData = accessoriesBagsData[item];
+          accessoriesBags.innerHTML += createProductDisplay(itemData);
+        }
+    
+        accessoriesBags.style.display = 'grid';
+    
+        const productContainer = accessoriesBags.querySelectorAll('.product-container');
+        productContainer.forEach(container => {
+          gatherContainerInfo(container);
+        }); 
+      }
+      console.log('test')
+    });
+}
 

@@ -353,9 +353,7 @@ main {
 
 .products-display {
   display: flex;
-  flex-direction: column;
   justify-content: center;
-  align-items: center;
   width: 100%;
   margin-top: 100px;
   margin-bottom: 50px;
@@ -374,7 +372,7 @@ main {
   font-size: 1.5rem;
 }
 
-.men-bestsellers, .men-shirts, .men-trousers {
+.men-bestsellers, .men-shirts, .men-trousers, .women-bestsellers, .women-shirts, .women-trousers, .accessories-bestsellers, .accessories-jewellery, .accessories-hats, .accessories-bags {
   display: grid;
   gap: 30px;
   grid-template-columns: repeat(3, 1fr);
@@ -441,3 +439,4 @@ main {
   background-color: transparent;
   cursor: pointer;
 }
+
