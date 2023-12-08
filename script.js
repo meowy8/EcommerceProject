@@ -7,7 +7,44 @@ const basketBtn = document.getElementById('basket-btn')
 const basketDropdown = document.getElementById('basket-dropdown')
 const basketItems = document.getElementById('basket-items')
 const basketTotal = document.querySelector('.basket-total span')
-const menBestsellers = document.getElementById('men-bestsellers')
+const productsDisplay = document.getElementById('products-display')
+
+const menSectionDropdownBtns = document.querySelectorAll('.men-section-dropdown button')
+menSectionDropdownBtns.forEach(button => {
+  button.addEventListener('click', function() {
+    const displayChoice = button.innerText
+    getMenClothingData(displayChoice)
+  })
+})
+
+const createProductDisplay = (itemData) => {
+  const productDisplayHtml = `
+  <div class="product-container">
+    <div class="product-img">
+      <img src="${itemData.src}" alt="" id="product-img">
+      <button class="add-to-fav-btn">
+        <span class="material-symbols-outlined favourites-icon">
+          favorite
+        </span>
+      </button>
+    </div>
+    <div class="product-footer">
+      <div class="product-footer-top">
+        <p class="product-name">${itemData.name}</p>
+        <p class="product-price">£${itemData.price}</p>
+      </div>
+      <div class="product-footer-bottom">
+        <div>
+          <label for="quantity-value">Quantity:</label>
+          <input type="number" name="quantity-value" id="quantity-value" value=1 min="0">
+        </div>
+        <button id="add-to-cart-btn" class="add-to-cart-btn">Add to Cart</button>
+      </div>
+    </div>
+  </div>
+  `
+  return productDisplayHtml
+}
 
 profileIconBtn.addEventListener('click', function() {
   const currentView = window.getComputedStyle(signInDropdown).display
@@ -161,45 +198,94 @@ const gatherContainerInfo = (container) => {
   })
 }
 
-//bestsellers products
-fetch('itemsData/menBestsellers.json')
+const getMenClothingData = (displayChoice) => {
+  fetch('itemsData/mensClothing.json')
   .then(response => response.json())
   .then(data => {
     console.log(data)
 
-    let key = 0
-    for (const item in data) {
-      const itemData = data[item]
-      key += 1
-      menBestsellers.innerHTML += `
-        <div class="product-container product-container-key-${key}">
-          <div class="product-img">
-            <img src="${itemData.src}" alt="" id="product-img">
-            <button class="add-to-fav-btn">
-              <span class="material-symbols-outlined favourites-icon">
-                favorite
-              </span>
-            </button>
-          </div>
-          <div class="product-footer">
-            <div class="product-footer-top">
-              <p class="product-name">${itemData.name}</p>
-              <p class="product-price">£${itemData.price}</p>
-            </div>
-            <div class="product-footer-bottom">
-              <div>
-                <label for="quantity-value">Quantity:</label>
-                <input type="number" name="quantity-value" id="quantity-value" value=1 min="0">
-              </div>
-              <button id="add-to-cart-btn" class="add-to-cart-btn add-to-cart-btn-${key}">Add to Cart</button>
-            </div>
-          </div>
-        </div>
+    if (displayChoice === 'Bestsellers') {
+      productsDisplay.innerHTML = `
+      <section class="men-bestsellers" id="men-bestsellers"></section>
       `
+      const menBestsellers = document.getElementById('men-bestsellers')
+  
+      const menBestsellersData = data.bestsellers
+      console.log(menBestsellersData)
+  
+      for (const item in menBestsellersData) {
+        const itemData = menBestsellersData[item]
+        menBestsellers.innerHTML += createProductDisplay(itemData)
+      }
+  
+      menBestsellers.style.display = 'grid'
+  
+      const productContainer = menBestsellers.querySelectorAll('.product-container')
+      productContainer.forEach(container => {
+        gatherContainerInfo(container)
+      }) 
+    } else if (displayChoice === 'T-Shirts/Shirts') {
+      productsDisplay.innerHTML = `
+      <section class="men-shirts" id="men-shirts"></section>
+      `
+      const menShirts = document.getElementById('men-shirts')
+  
+      const menShirtsData = data['t-shirts']
+      console.log(menShirtsData)
+  
+      for (const item in menShirtsData) {
+        const itemData = menShirtsData[item]
+        menShirts.innerHTML += createProductDisplay(itemData)
+      }
+  
+      menShirts.style.display = 'grid'
+  
+      const productContainer = menShirts.querySelectorAll('.product-container')
+      productContainer.forEach(container => {
+        gatherContainerInfo(container)
+      }) 
+    } else if (displayChoice === 'Trousers') {
+      productsDisplay.innerHTML = `
+      <section class="men-trousers" id="men-trousers"></section>
+      `
+      const menTrousers = document.getElementById('men-trousers')
+  
+      const menTrousersData = data['trousers']
+      console.log(menTrousersData)
+  
+      for (const item in menTrousersData) {
+        const itemData = menTrousersData[item]
+        menTrousers.innerHTML += createProductDisplay(itemData)
+      }
+  
+      menTrousers.style.display = 'grid'
+  
+      const productContainer = menTrousers.querySelectorAll('.product-container')
+      productContainer.forEach(container => {
+        gatherContainerInfo(container)
+      }) 
+    } else if (displayChoice === 'Sweatshirts/Hoodies') {
+      productsDisplay.innerHTML = `
+      <section class="men-hoodies" id="men-hoodies"></section>
+      `
+      const menHoodies = document.getElementById('men-hoodies')
+  
+      const menHoodiesData = data['sweatshirts/hoodies']
+      console.log(menHoodiesData)
+  
+      for (const item in menHoodiesData) {
+        const itemData = menHoodiesData[item]
+        menHoodies.innerHTML += createProductDisplay(itemData)
+      }
+  
+      menHoodies.style.display = 'grid'
+  
+      const productContainer = menHoodies.querySelectorAll('.product-container')
+      productContainer.forEach(container => {
+        gatherContainerInfo(container)
+      }) 
     }
-
-    const productContainer = menBestsellers.querySelectorAll('.product-container')
-    productContainer.forEach(container => {
-      gatherContainerInfo(container)
-    })
   })
+}
+
+

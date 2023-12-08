@@ -374,7 +374,7 @@ main {
   font-size: 1.5rem;
 }
 
-.men-bestsellers {
+.men-bestsellers, .men-shirts, .men-trousers {
   display: grid;
   gap: 30px;
   grid-template-columns: repeat(3, 1fr);
