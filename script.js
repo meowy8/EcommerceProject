@@ -2,6 +2,7 @@ const profileIconBtn = document.getElementById('profile-icon-btn')
 const signInDropdown = document.getElementById('sign-in-dropdown')
 const favouritesBtn = document.getElementById('favourites-btn')
 const favouritesDropdown = document.getElementById('favourites-dropdown')
+const favouritesItems = document.getElementById('favourites-items')
 const basketBtn = document.getElementById('basket-btn')
 const basketDropdown = document.getElementById('basket-dropdown')
 const basketItems = document.getElementById('basket-items')
@@ -9,38 +10,70 @@ const basketTotal = document.querySelector('.basket-total span')
 const menBestsellers = document.getElementById('men-bestsellers')
 
 profileIconBtn.addEventListener('click', function() {
-  signInDropdown.style.display = 'flex'
-})
-profileIconBtn.addEventListener('blur', function() {
-  signInDropdown.style.display = 'none'
+  const currentView = window.getComputedStyle(signInDropdown).display
+  
+  signInDropdown.style.display = currentView === 'none' ? 'flex' : 'none'
 })
 favouritesBtn.addEventListener('click', function() {
-  favouritesDropdown.style.display = 'flex'
-})
-favouritesBtn.addEventListener('blur', function() {
-  favouritesDropdown.style.display = 'none'
+  const currentView = window.getComputedStyle(favouritesDropdown).display
+  
+  favouritesDropdown.style.display = currentView === 'none' ? 'flex' : 'none'
 })
 basketBtn.addEventListener('click', function() {
-  basketDropdown.style.display = 'flex'
+  const currentView = window.getComputedStyle(basketDropdown).display
+  
+  basketDropdown.style.display = currentView === 'none' ? 'flex' : 'none'
 })
-/*basketBtn.addEventListener('blur', function() {
-  basketDropdown.style.display = 'none'
-})*/
+
+const favouritesRemoveBtn = () => {
+  const favouritesItem = favouritesItems.querySelectorAll('.favourites-item')
+  favouritesItem.forEach(item => {
+    const removeItemBtn = item.querySelector('button')
+    removeItemBtn.addEventListener('click', function() {
+      item.remove()
+    })
+  })
+}
+
+const addToFavFunc = (productImgSrc, displayNameText, productPriceNum) => {
+  const listOfNameElements = favouritesItems.querySelectorAll('.fav-display-name-text')
+
+  const duplicateItem = Array.from(listOfNameElements).some(element => element.innerText === displayNameText)
+
+  if (!duplicateItem) {
+    favouritesItems.innerHTML += `
+    <div class="favourites-item">
+      <div class="favourites-item-img-container">
+        <img src="${productImgSrc}" alt="">
+      </div>
+      <div class="favourites-item-info">
+        <p class="fav-display-name-text">${displayNameText}</p>
+        <p>Price: £<span>${productPriceNum}</span></p>
+      </div>
+      <div class="close-btn-container">
+        <button>
+          <span class="material-symbols-outlined">
+            close
+          </span>
+        </button>
+      </div>
+    </div>
+    `
+
+    favouritesRemoveBtn()
+  }
+}
 
 const basketRemoveBtn = () => {
   const basketItem = basketItems.querySelectorAll('.basket-item')
   basketItem.forEach(item => {
     const removeItemBtn = item.querySelector('button')
     const productTotalNum = item.querySelector('.product-total')
-    console.log(productTotalNum)
     removeItemBtn.addEventListener('click', function() {
-      console.log(basketTotal.innerText)
       basketTotal.innerText = (Number(basketTotal.innerText) - Number(productTotalNum.innerText)).toFixed(2)
-      console.log(basketTotal.innerText)
       item.remove()
     })
   })
-  return
 }
 
 const basketTotalFunc = () => {
@@ -54,12 +87,9 @@ const basketTotalFunc = () => {
   basketTotal.innerText = Number(basketTotalValue.toFixed(2))
 }
 
-const addToCartFunc = (productImg, displayName, productPrice, quantityValue) => {
-  const productImgSrc = productImg.src
-  const displayNameText = displayName.innerText
-  const productPriceNum = Number(productPrice.innerText.replace('£', ''))
+const addToCartFunc = (productImgSrc, displayNameText, productPriceNum, quantityValue) => {
   const productQuantityNum = Number(quantityValue.value)
-  const listOfNameElements = basketItems.querySelectorAll('.display-name-text')
+  const listOfNameElements = basketItems.querySelectorAll('.basket-display-name-text')
 
   let basketItemInfo = null
   const duplicateItem = Array.from(listOfNameElements).some(element => {
@@ -84,7 +114,7 @@ const addToCartFunc = (productImg, displayName, productPrice, quantityValue) => 
           <img src="${productImgSrc}" alt="">
         </div>
         <div class="basket-item-info" id="basket-item-info">
-          <p class="display-name-text">${displayNameText}</p>
+          <p class="basket-display-name-text">${displayNameText}</p>
           <p>Quantity: <span class="product-quantity-value">${productQuantityNum}</span></p>
           <p>Price: £<span class="product-total">${productPriceNum * productQuantityNum}</span></p>
         </div>
@@ -104,6 +134,27 @@ const addToCartFunc = (productImg, displayName, productPrice, quantityValue) => 
   basketTotalFunc()
 }
 
+const gatherContainerInfo = (container) => {
+  const addToCartBtn = container.querySelector('.add-to-cart-btn')
+  const addToFavBtn = container.querySelector('.add-to-fav-btn')
+  const productImg = container.querySelector('img')
+  const displayName = container.querySelector('.product-name')
+  const productPrice = container.querySelector('.product-price')
+  const quantityValue = container.querySelector('input')
+
+  const productImgSrc = productImg.src
+  const displayNameText = displayName.innerText
+  const productPriceNum = Number(productPrice.innerText.replace('£', ''))
+
+  addToCartBtn.addEventListener('click', function() {
+    addToCartFunc(productImgSrc, displayNameText, productPriceNum, quantityValue)
+  })
+
+  addToFavBtn.addEventListener('click', function() {
+    addToFavFunc(productImgSrc, displayNameText, productPriceNum)
+  })
+}
+
 //bestsellers products
 fetch('itemsData/menBestsellers.json')
   .then(response => response.json())
@@ -118,7 +169,7 @@ fetch('itemsData/menBestsellers.json')
         <div class="product-container product-container-key-${key}">
           <div class="product-img">
             <img src="${itemData.src}" alt="" id="product-img">
-            <button>
+            <button class="add-to-fav-btn">
               <span class="material-symbols-outlined favourites-icon">
                 favorite
               </span>
@@ -143,14 +194,6 @@ fetch('itemsData/menBestsellers.json')
 
     const productContainer = menBestsellers.querySelectorAll('.product-container')
     productContainer.forEach(container => {
-      const addToCartBtn = container.querySelector('.add-to-cart-btn')
-      const productImg = container.querySelector('img')
-      const displayName = container.querySelector('.product-name')
-      const productPrice = container.querySelector('.product-price')
-      const quantityValue = container.querySelector('input')
-      addToCartBtn.addEventListener('click', function() {
-        addToCartFunc(productImg, displayName, productPrice, quantityValue)
-      })
+      gatherContainerInfo(container)
     })
   })
-
