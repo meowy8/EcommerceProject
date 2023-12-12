@@ -25,6 +25,11 @@ nav {
   z-index: 1;
 }
 
+.title-btn {
+  background-color: transparent;
+  border: none;
+}
+
 .shop-title {
   font-family: 'Glass Antiqua', cursive;
   font-size: 60px;
@@ -304,7 +309,7 @@ main {
 }
 
 .main-display {
-  display: none;
+  display: flex;
   width: 2000px;
   height: 1000px;
   justify-content: space-around;
@@ -352,7 +357,7 @@ main {
 }
 
 .products-display {
-  display: flex;
+  display: none;
   justify-content: center;
   width: 100%;
   margin-top: 100px;

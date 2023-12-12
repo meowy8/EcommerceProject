@@ -8,8 +8,22 @@ const basketDropdown = document.getElementById('basket-dropdown')
 const basketItems = document.getElementById('basket-items')
 const basketTotal = document.querySelector('.basket-total span')
 const productsDisplay = document.getElementById('products-display')
+const profileIcon = document.getElementById('profile-icon')
+const favIcon = document.getElementById('fav-icon')
+const basketIcon = document.getElementById('basket-icon')
+const mainDisplay = document.getElementById('main-display')
+const titleBtn = document.getElementById('title-btn')
+
+titleBtn.addEventListener('click', function() {
+  productsDisplay.style.display = 'none'
+  mainDisplay.style.display = 'flex'
+})
 
 const menSectionDropdownBtns = document.querySelectorAll('.men-section-dropdown button')
+const mainDisplayMenBtn = document.getElementById('main-display-men-btn')
+mainDisplayMenBtn.addEventListener('click', function() {
+  getMenClothingData('Bestsellers')
+})
 menSectionDropdownBtns.forEach(button => {
   button.addEventListener('click', function() {
     const displayChoice = button.innerText
@@ -18,6 +32,10 @@ menSectionDropdownBtns.forEach(button => {
 })
 
 const womenSectionDropdownBtns = document.querySelectorAll('.women-section-dropdown button');
+const mainDisplayWomenBtn = document.getElementById('main-display-women-btn')
+mainDisplayWomenBtn.addEventListener('click', function() {
+  getWomenClothingData('Bestsellers')
+})
 womenSectionDropdownBtns.forEach(button => {
   button.addEventListener('click', function() {
     const displayChoice = button.innerText;
@@ -32,7 +50,6 @@ accessoriesSectionDropdownBtns.forEach(button => {
     getAccessoriesData(displayChoice);
   });
 });
-
 
 const createProductDisplay = (itemData) => {
   const productDisplayHtml = `
@@ -176,7 +193,7 @@ const addToCartFunc = (productImgSrc, displayNameText, productPriceNum, quantity
         <div class="basket-item-info" id="basket-item-info">
           <p class="basket-display-name-text">${displayNameText}</p>
           <p>Quantity: <span class="product-quantity-value">${productQuantityNum}</span></p>
-          <p>Price: £<span class="product-total">${productPriceNum * productQuantityNum}</span></p>
+          <p>Price: £<span class="product-total">${(productPriceNum * productQuantityNum).toFixed(2)}</span></p>
         </div>
         <div class="close-btn-container">
           <button>
@@ -219,6 +236,8 @@ const getMenClothingData = (displayChoice) => {
   fetch('itemsData/mensClothing.json')
   .then(response => response.json())
   .then(data => {
+    mainDisplay.style.display = 'none'
+    productsDisplay.style.display = 'flex'
     if (displayChoice === 'Bestsellers') {
       productsDisplay.innerHTML = `
       <section class="men-bestsellers" id="men-bestsellers"></section>
@@ -303,6 +322,8 @@ const getWomenClothingData = (displayChoice) => {
   fetch('itemsData/womensClothing.json')
     .then(response => response.json())
     .then(data => {
+      mainDisplay.style.display = 'none'
+      productsDisplay.style.display = 'flex'
       if (displayChoice === 'Bestsellers') {
         productsDisplay.innerHTML = `
           <section class="women-bestsellers" id="women-bestsellers"></section>
@@ -387,6 +408,8 @@ const getAccessoriesData = (displayChoice) => {
   fetch('itemsData/accessories.json')
     .then(response => response.json())
     .then(data => {
+      mainDisplay.style.display = 'none'
+      productsDisplay.style.display = 'flex'
       if (displayChoice === 'Bestsellers') {
         productsDisplay.innerHTML = `
           <section class="accessories-bestsellers" id="accessories-bestsellers"></section>
@@ -464,7 +487,6 @@ const getAccessoriesData = (displayChoice) => {
           gatherContainerInfo(container);
         }); 
       }
-      console.log('test')
     });
 }
 
